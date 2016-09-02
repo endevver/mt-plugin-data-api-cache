@@ -5,6 +5,7 @@ use warnings;
 
 use Sub::Install;
 use Digest::MD5 qw( md5_hex );
+use Encode qw(encode_utf8);
 
 sub init_app {
     my ( $cb, $app, %args ) = @_;
@@ -64,7 +65,13 @@ sub api {
         # table. Hopefully the endpoint ID is short? md5_hex creates a
         # 22-character string, so that leaves a max of 57 characters for the
         # endpoint ID, and one for the colon.
-        $cache_key = join(':', $endpoint->{id}, md5_hex($ENV{'QUERY_STRING'}) );
+        $cache_key = join(':',
+            $endpoint->{id},
+            md5_hex(
+                encode_utf8($ENV{'REQUEST_URI'}),
+                encode_utf8($ENV{'QUERY_STRING'})
+            )
+        );
         $cache_key =~ s! !_!g;
 
         my $json = $cache->get( $cache_key );

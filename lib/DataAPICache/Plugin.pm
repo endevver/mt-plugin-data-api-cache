@@ -55,8 +55,9 @@ sub api {
         my $ttl = $app->param('cache_ttl') || 60;
 
         $cache = MT::Cache::Negotiate->new(
-            ttl  => $ttl,
-            kind => 'DA', # as in *D*ata *A*PI
+            ttl       => $ttl,
+            kind      => 'DA', # for MT:Session; as in *D*ata *A*PI
+            expirable => 1,    # for Memcached
         );
 
         # The cache key needs to be 80 characters or less for the MT::Session

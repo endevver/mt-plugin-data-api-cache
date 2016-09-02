@@ -5,7 +5,7 @@ description: Provides request-level caching to the Data API.
 author_name: Dan Wolfgang, Endevver
 author_link: http://endevver.com
 plugin_link: https://github.com/endevver/mt-plugin-data-api-cache
-version:     1.0.0
+version:     1.0.1
 
 callbacks:
     MT::App::DataAPI::init_app: $DataAPICache::DataAPICache::Plugin::init_app

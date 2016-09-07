@@ -23,7 +23,7 @@ sub init_app {
 sub api {
     my ($app) = @_;
     my ( $version, $path ) = $app->_version_path;
-    $app->log("Logging in api!");
+
     return $app->print_error( 'API Version is required', 400 )
         unless defined $version;
 
